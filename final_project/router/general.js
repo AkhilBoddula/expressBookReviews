@@ -4,6 +4,51 @@ let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
 const public_users = express.Router();
 
+const axios = require('axios');
+
+async function getBooks() {
+    try {
+       
+        const response = await axios.get('http://localhost:5000/');
+        console.log("Books retrieved successfully:");
+        console.log(JSON.stringify(response.data, null, 4));
+    } catch (error) {
+       
+        console.error("Error fetching books:", error.message);
+    }
+}
+
+async function getBookByISBN(isbn) {
+    try {
+      const response = await axios.get(`http://localhost:3000/isbn/${isbn}`);
+      console.log("Book details:", response.data);
+    } catch (error) {
+      console.error("Error fetching book details:", error.message);
+    }
+  }
+
+  
+async function getBookByAuthor(author) {
+    try {
+      const response = await axios.get(`http://localhost:3000/author/${author}`);
+      console.log("Book details:", response.data);
+    } catch (error) {
+      console.error("Error fetching book details:", error.message);
+    }
+  }
+
+  
+async function getBookByTitle(title) {
+    try {
+      const response = await axios.get(`http://localhost:3000/title/${title}`);
+      console.log("Book details:", response.data);
+    } catch (error) {
+      console.error("Error fetching book details:", error.message);
+    }
+  }
+
+
+
 
 const doesExist = (username) => {
     let userswithsamename = users.filter((user) => {
